@@ -1,0 +1,41 @@
+<div class="container">
+    <h1>To-Do App</h1>
+    <form class="form-control">
+      <mat-form-field>
+        <mat-label>Todo</mat-label>
+        <input type="text" placeholder="What To do?"
+        matInput
+        [formControl]="name">
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <input type="text" placeholder="Select Category"
+        matInput
+        [formControl]="category"
+        [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <!-- @for (option of filteredOptions | async; track option) { -->
+                <mat-option *ngFor="let option of filteredOptions | async " [value]="option">{{option}}</mat-option>
+              <!-- } -->
+        </mat-autocomplete>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Month and Year</mat-label>
+        <input matInput [matDatepicker]="dp" [formControl]="date">
+        <mat-hint>MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp
+        startView="multi-year"
+        (monthSelected)="setMonthAndYear($event, dp)"
+        panelClass="example-month-picker">
+      </mat-datepicker>
+    </mat-form-field>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;" >
+      <button mat-raised-button (click)="saveTodo()">Add Todo</button>
+      <button mat-raised-button (click)="openDialog()">Show Todo List</button>
+    </div>
+    <!-- <dialog-todolist (btnClick)="remove($event)"/> -->
+  </form>
+  </div>
